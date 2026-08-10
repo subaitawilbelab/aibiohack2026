@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Review the two finalist website directions for the London AI x Bio Hackathon."
+    />
+    <title>London AI × Bio Hackathon — Design Review</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=Manrope:wght@400;500&display=swap");
+
+      :root {
+        color-scheme: light;
+        --background: #e9edf0;
+        --foreground: #17202b;
+        --muted: #66717e;
+        --line: #c8cfd5;
+        --surface: #f8f9fa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--background);
+        color: var(--foreground);
+        font-family: "Manrope", system-ui, sans-serif;
+        margin: 0;
+      }
+
+      header,
+      main,
+      footer {
+        margin-inline: auto;
+        max-width: 1560px;
+        width: calc(100% - 48px);
+      }
+
+      header {
+        align-items: end;
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 1fr auto;
+        padding: 42px 0 30px;
+      }
+
+      .kicker,
+      .option-number {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-size: clamp(38px, 5.5vw, 74px);
+        font-weight: 500;
+        letter-spacing: -.055em;
+        line-height: .95;
+        margin: 10px 0 12px;
+      }
+
+      header p {
+        color: var(--muted);
+        font-size: 15px;
+        margin: 0;
+        max-width: 680px;
+      }
+
+      nav {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        display: flex;
+        padding: 4px;
+      }
+
+      nav a {
+        border-radius: 999px;
+        color: var(--foreground);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 10px 14px;
+        text-decoration: none;
+      }
+
+      nav a:hover,
+      nav a:focus-visible {
+        background: var(--foreground);
+        color: #ffffff;
+      }
+
+      main {
+        display: grid;
+        gap: 42px;
+      }
+
+      section {
+        display: grid;
+        gap: 12px;
+        scroll-margin-top: 20px;
+      }
+
+      .section-heading {
+        align-items: end;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 24px;
+        justify-content: space-between;
+      }
+
+      h2 {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-size: clamp(28px, 3.4vw, 46px);
+        font-weight: 500;
+        letter-spacing: -.04em;
+        line-height: 1;
+        margin: 5px 0 0;
+      }
+
+      .description {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .frame {
+        background:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px),
+          #dfe4e8;
+        background-size: 24px 24px;
+        border: 1px solid var(--line);
+        padding: 18px;
+      }
+
+      iframe {
+        background: transparent;
+        border: 0;
+        display: block;
+        height: 1600px;
+        width: 100%;
+      }
+
+      footer {
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 11px;
+        gap: 12px 24px;
+        justify-content: space-between;
+        padding: 28px 0 36px;
+      }
+
+      @media (max-width: 760px) {
+        header,
+        main,
+        footer {
+          width: calc(100% - 24px);
+        }
+
+        header {
+          align-items: start;
+          grid-template-columns: 1fr;
+          padding-top: 28px;
+        }
+
+        nav {
+          width: max-content;
+        }
+
+        .frame {
+          padding: 8px;
+        }
+
+        iframe {
+          height: 2300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <div class="kicker">Team design review · 25 July 2026</div>
+        <h1>London AI × Bio Hackathon</h1>
+        <p>
+          Two finalist website directions. Use the controls inside each preview
+          to compare light and dark modes across desktop and mobile.
+        </p>
+      </div>
+      <nav aria-label="Jump to design direction">
+        <a href="#night-orbit">01 · Night Orbit</a>
+        <a href="#london-modernist">02 · London Modernist</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="night-orbit">
+        <div class="section-heading">
+          <div>
+            <div class="option-number">Option 01</div>
+            <h2>Night Orbit</h2>
+          </div>
+          <div class="description">
+            Rounded, technical and orbital · Inter Tight + Manrope
+          </div>
+        </div>
+        <div class="frame">
+          <iframe
+            src="night-orbit.html"
+            title="Night Orbit design preview"
+          ></iframe>
+        </div>
+      </section>
+
+      <section id="london-modernist">
+        <div class="section-heading">
+          <div>
+            <div class="option-number">Option 02</div>
+            <h2>London Modernist</h2>
+          </div>
+          <div class="description">
+            Editorial, asymmetric and poster-led · Archivo + Libre Franklin
+          </div>
+        </div>
+        <div class="frame">
+          <iframe
+            loading="lazy"
+            src="london-modernist.html"
+            title="London Modernist design preview"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Review copy only · Application actions are inactive</span>
+      <span>OpenAI × NVIDIA × Wilbe</span>
+    </footer>
+  </body>
+</html>
