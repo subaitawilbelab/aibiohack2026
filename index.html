@@ -24,6 +24,7 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      overflow-x: hidden;
       color: var(--ink);
       background: var(--paper);
       font-family: Manrope, Arial, sans-serif;
@@ -32,6 +33,27 @@
     }
     a { color: inherit; }
     img { display: block; width: 100%; }
+    header, main, footer { position: relative; z-index: 1; }
+
+    .sequence-bg {
+      position: absolute;
+      top: 70px;
+      right: -6vw;
+      width: min(68vw, 900px);
+      height: 760px;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      user-select: none;
+      color: rgba(23, 23, 23, 0.075);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: clamp(12px, 1.35vw, 18px);
+      line-height: 3.35;
+      letter-spacing: 0.72em;
+      white-space: pre;
+      -webkit-mask-image: radial-gradient(ellipse at 100% 0%, #000 0%, rgba(0,0,0,.82) 48%, transparent 82%);
+      mask-image: radial-gradient(ellipse at 100% 0%, #000 0%, rgba(0,0,0,.82) 48%, transparent 82%);
+    }
 
     .wrap { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; }
     .topbar {
@@ -229,6 +251,18 @@
   </style>
 </head>
 <body>
+  <div class="sequence-bg" aria-hidden="true">A C G T 0 1 1 0 G T A C 1 0 0 1 T C G A
+A C 1 0 0 1 T C G A 0 0 1 1 A A G T 1 1
+0 0 1 1 A A G T 1 1 0 0 C G T A 0 1 0 1
+0 0 C G T A 0 1 0 1 G A C T 1 0 1 0 T T
+G A C T 1 0 1 0 T T A C G T 0 1 1 0 G T
+C G A T 0 1 0 1 A C 1 0 0 1 T C G A 0 0
+1 0 1 1 G T A C 0 0 1 1 A A G T 1 1 0 0
+T A C G 1 0 0 1 0 0 C G T A 0 1 0 1 G A
+A G C T 0 1 1 0 G A C T 1 0 1 0 T T A C
+0 1 0 1 C G A T A C G T 0 1 1 0 G T A C
+G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
+1 1 0 0 C G T A 0 1 0 1 G A C T 1 0 1 0</div>
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="#top">London AI x Bio Build Weekend</a>
