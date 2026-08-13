@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="London AI x Bio Sprint Weekend at WilbeLABS, White City, 18–20 September 2026.">
-  <title>London AI x Bio Sprint Weekend 2026</title>
+  <meta name="description" content="London AI x Bio Hack Weekend at WilbeLABS, White City, 18–20 September 2026.">
+  <title>London AI x Bio Hack Weekend</title>
   <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,16 +136,6 @@
     .fact span { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
     .fact strong { display: block; margin-top: 4px; font-size: 16px; }
 
-    .venue-strip { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
-    .venue-strip img {
-      display: block;
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      object-position: center 55%;
-    }
-    .venue-strip figcaption { margin-top: 8px; color: #737373; font-size: 12px; }
-
     .body-grid {
       display: grid;
       grid-template-columns: 220px minmax(0, 760px);
@@ -193,7 +183,7 @@
     .intro-body { color: var(--muted); }
     .lab-intro { color: #484848; }
     .body-copy { color: #484848; }
-    .lab-continuation { margin-top: 40px; scroll-margin-top: 28px; }
+    .lab-continuation { margin-top: 0; scroll-margin-top: 28px; }
     .subsection-heading {
       margin-bottom: 16px;
       font-size: clamp(22px, 2vw, 26px);
@@ -230,13 +220,11 @@
 
     @media (max-width: 820px) {
       .wrap { width: min(calc(100% - 32px), var(--max)); }
-      .venue-strip { width: calc(100% - 24px); }
       .nav a:not(.button) { display: none; }
       .hero { padding: 64px 0 48px; }
       h1 { font-size: clamp(44px, 14vw, 68px); }
       .facts { grid-template-columns: 1fr; }
       .fact + .fact { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
-      .venue-strip img { height: 240px; }
       .body-grid { display: block; padding: 44px 0 80px; }
       .contents { display: none; }
       .section { padding-bottom: 54px; margin-bottom: 54px; }
@@ -269,9 +257,10 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
 1 1 0 0 C G T A 0 1 0 1 G A C T 1 0 1 0</div>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="#top">London AI x Bio Sprint Weekend</a>
+      <a class="brand" href="#top">London AI x Bio Hack Weekend</a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#about">The Challenge</a>
+        <a href="#programme">Schedule</a>
         <a href="#applications" class="button">Apply</a>
       </nav>
     </div>
@@ -280,8 +269,8 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
   <main id="top">
     <section class="hero">
       <div class="wrap reveal">
-        <h1><span class="title-line">London AI x Bio</span><span class="title-line">Sprint Weekend</span></h1>
-        <p class="standfirst">Three days of interdisciplinary building, inside a working London laboratory.</p>
+        <h1><span class="title-line">London AI x Bio</span><span class="title-line">Hack Weekend</span></h1>
+        <p class="standfirst">Three days of interdisciplinary building leveraging the latest technology from OpenAI and NVIDIA inside a working London biotech laboratory.</p>
         <div class="cohosts" aria-label="Event co-hosts">
           <p class="cohosts-label">Co-hosted by</p>
           <div class="cohosts-list" aria-hidden="true">
@@ -299,28 +288,23 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
       </div>
     </section>
 
-    <figure class="venue-strip wrap reveal">
-      <img src="assets/westworks-exterior.png" alt="The WestWorks entrance in White City, London">
-      <figcaption>The WestWorks, White City.</figcaption>
-    </figure>
-
     <div class="wrap body-grid">
       <aside class="contents" aria-label="On this page">
         <p>On This Page</p>
         <a href="#about">The Challenge</a>
         <a href="#tracks">Tracks</a>
         <a href="#who">Who Should Apply</a>
+        <a href="#programme">Schedule</a>
         <a href="#applications">Applications</a>
       </aside>
 
       <div>
         <section class="section reveal" id="about">
           <h2>The Challenge</h2>
-          <p class="body-copy">AI is changing how scientific tools are built and used in science. This weekend is about testing how those systems can work reliably in real scientific workflows.</p>
-          <p class="body-copy">Mixed teams will use <strong>Codex</strong> with the <strong>BioNeMo Agent Toolkit</strong> to turn a credible life-sciences problem into a working repository, workflow, benchmark or prototype.</p>
+          <p class="body-copy">Incredible work happens when you connect domain expertise with frontier technology. Advances in coding agents are enabling scientists who have never coded to orchestrate complex workflows and helping builders expand to new domains. This weekend is about seeing what happens when researchers, engineers, and builders work on real life sciences problems with the latest frontier models and accelerated tools.</p>
+          <p class="body-copy">Interdisciplinary teams will use the latest advances from OpenAI and NVIDIA for life sciences research including GPT-Rosalind and the BioNeMo Agent Toolkit. Experts from OpenAI and NVIDIA will be on-site to teach you how to use these tools and help mentor teams as they turn a real drug discovery or biology problem into a working workflow, benchmark, or prototype.</p>
           <div class="lab-continuation" id="lab">
-            <h3 class="subsection-heading">Build Inside the Labs</h3>
-            <p class="body-copy">The weekend takes place inside WilbeLABS’ working London laboratories, keeping the scientific context close to the technical work.</p>
+            <p class="body-copy">All this work will happen inside WilbeLABS’ working London laboratories, including tours of the facilities to keep the scientific context close to the technical work.</p>
             <div class="photo-grid reveal">
               <img class="lab-primary" src="assets/lab-benches-bright.png" alt="Wet-lab benches at WilbeLABS">
               <img src="assets/westworks-lab-corridor.png" alt="Laboratory corridor at WestWorks Labs">
@@ -370,13 +354,19 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
           <div class="audiences">
             <div class="audience">
               <h3>Builders</h3>
-              <p>Software and ML engineers, computational scientists, bioinformaticians, technical scientists and founders working across AI and biology who want to build and test scientific workflows.</p>
+              <p>People who work at the intersection of AI and biology, from computational biologists, AI researchers, or software engineers who are curious about biology.</p>
             </div>
             <div class="audience">
               <h3>Scientists</h3>
-              <p>Researchers, wet-lab scientists and life-science practitioners who bring biological questions, experimental knowledge and real-world scientific constraints.</p>
+              <p>Researchers and wet-lab scientists who are using coding agents to answer biological questions, leveraging experimental knowledge and real-world scientific constraints.</p>
             </div>
           </div>
+        </section>
+
+        <section class="section reveal" id="programme">
+          <h2>Schedule</h2>
+          <p class="body-copy">This will be a 3-day event running from 18-20 September 2026. Each day will include talks, demos, and plenty of time to build.</p>
+          <p class="body-copy">Exact schedule to be shared ahead of the event.</p>
         </section>
 
         <section class="section reveal" id="applications">
