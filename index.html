@@ -88,13 +88,6 @@
 
     .hero { position: relative; overflow: hidden; padding: 82px 0 64px; }
     .hero .wrap { position: relative; z-index: 2; }
-    .eyebrow {
-      margin: 0 0 22px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
     h1, h2, h3, p { margin-top: 0; }
     h1 {
       max-width: 880px;
@@ -111,6 +104,25 @@
       font-size: clamp(21px, 2.3vw, 30px);
       line-height: 1.35;
       letter-spacing: -0.025em;
+    }
+    .cohosts { margin: 0 0 30px; }
+    .cohosts-label {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .cohosts-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 30px;
+      align-items: center;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
     }
     .facts {
       display: grid;
@@ -210,14 +222,6 @@
     .track h3 { margin-bottom: 10px; font-size: 22px; }
     .track-summary { margin: 0; color: #3e3e3e; }
 
-    .day { padding: 38px 0 48px; border-top: 1px solid var(--line); }
-    .day-heading { margin-bottom: 18px; }
-    .day-date { margin: 0; color: #222; font-size: 20px; font-weight: 700; letter-spacing: -0.015em; }
-    .schedule { margin-top: 25px; border-top: 1px solid var(--line); }
-    .schedule-row { display: grid; grid-template-columns: 86px 1fr; gap: 18px; padding: 15px 0; border-bottom: 1px solid var(--line); }
-    .schedule-row time { color: var(--muted); font-size: 13px; }
-    .schedule-row strong { display: block; color: #353535; font-size: 15px; font-weight: 500; }
-
     footer { padding: 24px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; text-align: center; }
 
     .reveal { opacity: 1; transform: none; }
@@ -236,12 +240,12 @@
       .body-grid { display: block; padding: 44px 0 80px; }
       .contents { display: none; }
       .section { padding-bottom: 54px; margin-bottom: 54px; }
-      .audience, .day-heading { grid-template-columns: 1fr; gap: 8px; }
+      .audience { grid-template-columns: 1fr; gap: 8px; }
       .photo-grid { grid-template-columns: 1fr; }
       .photo-grid img { height: 52vw; min-height: 200px; max-height: 280px; }
       .photo-grid .lab-primary { grid-column: auto; height: 58vw; min-height: 260px; max-height: 380px; }
       .track { grid-template-columns: 38px 1fr; gap: 10px; }
-      .schedule-row { grid-template-columns: 74px 1fr; gap: 12px; }
+      .cohosts-list { gap: 12px 22px; font-size: 16px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -268,7 +272,6 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
       <a class="brand" href="#top">London AI x Bio Sprint Weekend</a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#about">The Challenge</a>
-        <a href="#programme">Schedule</a>
         <a href="#applications" class="button">Apply</a>
       </nav>
     </div>
@@ -277,9 +280,16 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
   <main id="top">
     <section class="hero">
       <div class="wrap reveal">
-        <p class="eyebrow">Co-hosted by OpenAI × NVIDIA × WilbeLABS</p>
         <h1><span class="title-line">London AI x Bio</span><span class="title-line">Sprint Weekend</span></h1>
         <p class="standfirst">Three days of interdisciplinary building, inside a working London laboratory.</p>
+        <div class="cohosts" aria-label="Event co-hosts">
+          <p class="cohosts-label">Co-hosted by</p>
+          <div class="cohosts-list" aria-hidden="true">
+            <span>OpenAI</span>
+            <span>NVIDIA</span>
+            <span>WilbeLABS</span>
+          </div>
+        </div>
         <a class="button" href="#applications">Apply</a>
         <div class="facts" aria-label="Event details">
           <div class="fact"><span>Dates</span><strong>18–20 September 2026</strong></div>
@@ -300,7 +310,6 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
         <a href="#about">The Challenge</a>
         <a href="#tracks">Tracks</a>
         <a href="#who">Who Should Apply</a>
-        <a href="#programme">Schedule</a>
         <a href="#applications">Applications</a>
       </aside>
 
@@ -361,63 +370,11 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
           <div class="audiences">
             <div class="audience">
               <h3>Builders</h3>
-              <p>Software engineers, ML engineers, computational scientists, bioinformaticians and others who want to build, prototype and test scientific workflows.</p>
+              <p>Software and ML engineers, computational scientists, bioinformaticians, technical scientists and founders working across AI and biology who want to build and test scientific workflows.</p>
             </div>
             <div class="audience">
               <h3>Scientists</h3>
               <p>Researchers, wet-lab scientists and life-science practitioners who bring biological questions, experimental knowledge and real-world scientific constraints.</p>
-            </div>
-            <div class="audience">
-              <h3>Cross-Disciplinary Builders</h3>
-              <p>People who work at the intersection of AI and biology, from computational biologists, technical scientists or scientific founders.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="section reveal" id="programme">
-          <h2>Schedule</h2>
-          <div class="day">
-            <div class="day-heading">
-              <h3 class="day-date">Friday · 18 September</h3>
-            </div>
-            <div class="schedule">
-              <div class="schedule-row"><time>09:00</time><div><strong>Arrival and coffee</strong></div></div>
-              <div class="schedule-row"><time>09:30</time><div><strong>Setting the scene</strong></div></div>
-              <div class="schedule-row"><time>10:00</time><div><strong>Lab walkthrough: biology reality check</strong></div></div>
-              <div class="schedule-row"><time>10:45</time><div><strong>Break</strong></div></div>
-              <div class="schedule-row"><time>11:00</time><div><strong>Talk: Frontier AI for biology: possibilities and limits</strong></div></div>
-              <div class="schedule-row"><time>12:30</time><div><strong>Lunch</strong></div></div>
-              <div class="schedule-row"><time>13:30</time><div><strong>Talk: BioNeMo: models you can use now</strong></div></div>
-              <div class="schedule-row"><time>14:45</time><div><strong>Break</strong></div></div>
-              <div class="schedule-row"><time>15:00</time><div><strong>Choose tracks, form teams and start building</strong></div></div>
-              <div class="schedule-row"><time>17:15</time><div><strong>Drinks and networking</strong></div></div>
-            </div>
-          </div>
-          <div class="day">
-            <div class="day-heading">
-              <h3 class="day-date">Saturday · 19 September</h3>
-            </div>
-            <div class="schedule">
-              <div class="schedule-row"><time>09:30</time><div><strong>Arrival and coffee</strong></div></div>
-              <div class="schedule-row"><time>10:00</time><div><strong>Talk: Codex, access and combine life-science tools</strong></div></div>
-              <div class="schedule-row"><time>10:45</time><div><strong>Build sprint: make it work</strong></div></div>
-              <div class="schedule-row"><time>12:30</time><div><strong>Lunch</strong></div></div>
-              <div class="schedule-row"><time>13:30</time><div><strong>Talk: What went wrong? A real techbio case</strong></div></div>
-              <div class="schedule-row"><time>14:00</time><div><strong>Build sprint: benchmark, stress-test and document</strong></div></div>
-              <div class="schedule-row"><time>16:30</time><div><strong>Gallery walk and mentor feedback</strong></div></div>
-              <div class="schedule-row"><time>18:00</time><div><strong>Drinks and networking</strong></div></div>
-            </div>
-          </div>
-          <div class="day">
-            <div class="day-heading">
-              <h3 class="day-date">Sunday · 20 September</h3>
-            </div>
-            <div class="schedule">
-              <div class="schedule-row"><time>09:30</time><div><strong>Arrival and coffee, Office Hours with TAs and Track Leads</strong></div></div>
-              <div class="schedule-row"><time>10:00</time><div><strong>Final build and write-up</strong></div></div>
-              <div class="schedule-row"><time>12:30</time><div><strong>Lunch</strong></div></div>
-              <div class="schedule-row"><time>13:30</time><div><strong>Judged final presentations</strong></div></div>
-              <div class="schedule-row"><time>15:30</time><div><strong>Closing and awards</strong></div></div>
             </div>
           </div>
         </section>
