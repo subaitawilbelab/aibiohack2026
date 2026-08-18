@@ -105,7 +105,7 @@
       line-height: 1.35;
       letter-spacing: -0.025em;
     }
-    .cohosts { margin: 0 0 30px; }
+    .cohosts { --cohost-logo-height: clamp(20px, 4.5vw, 32px); margin: 0 0 30px; }
     .cohosts-label {
       margin-bottom: 12px;
       color: var(--muted);
@@ -116,14 +116,24 @@
     }
     .cohosts-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 18px 30px;
+      gap: 20px;
       align-items: center;
-      color: var(--ink);
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.015em;
+      width: max-content;
+      max-width: 100%;
     }
+    .cohost-logo {
+      display: block;
+      width: auto;
+      height: var(--cohost-logo-height);
+      object-position: center;
+    }
+    .cohost-openai { object-fit: contain; object-position: left center; }
+    .cohost-nvidia {
+      flex: 0 0 calc(var(--cohost-logo-height) * 5.25);
+      width: calc(var(--cohost-logo-height) * 5.25);
+      background: url("assets/nvidia-logo.png") center / 136% auto no-repeat;
+    }
+    .cohost-wilbelabs { height: calc(var(--cohost-logo-height) * 0.82); object-fit: contain; }
     .facts {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -233,7 +243,10 @@
       .photo-grid img { height: 52vw; min-height: 200px; max-height: 280px; }
       .photo-grid .lab-primary { grid-column: auto; height: 58vw; min-height: 260px; max-height: 380px; }
       .track { grid-template-columns: 38px 1fr; gap: 10px; }
-      .cohosts-list { gap: 12px 22px; font-size: 16px; }
+    }
+
+    @media (max-width: 520px) {
+      .cohosts-list { gap: 8px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -273,10 +286,10 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
         <p class="standfirst">Three days of interdisciplinary building leveraging the latest technology from OpenAI and NVIDIA inside a working London biotech laboratory.</p>
         <div class="cohosts" aria-label="Event co-hosts">
           <p class="cohosts-label">Co-hosted by</p>
-          <div class="cohosts-list" aria-hidden="true">
-            <span>OpenAI</span>
-            <span>NVIDIA</span>
-            <span>WilbeLABS</span>
+          <div class="cohosts-list">
+            <img class="cohost-logo cohost-openai" src="assets/openai-wordmark-black.svg" alt="OpenAI">
+            <span class="cohost-logo cohost-nvidia" role="img" aria-label="NVIDIA"></span>
+            <img class="cohost-logo cohost-wilbelabs" src="assets/wilbelabs-logo-yellow.png" alt="WilbeLABS">
           </div>
         </div>
         <a class="button" href="#applications">Apply</a>
