@@ -1,0 +1,78 @@
+.funky-demo .sequence-bg {
+  opacity: 0;
+  animation: none;
+}
+
+.sequence-canvas {
+  position: absolute;
+  top: 70px;
+  right: -1vw;
+  z-index: 0;
+  width: min(72vw, 980px);
+  height: 795px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask-image: radial-gradient(ellipse 108% 106% at 100% 0%, #000 0%, #000 58%, rgba(0, 0, 0, .72) 76%, transparent 96%);
+  mask-image: radial-gradient(ellipse 108% 106% at 100% 0%, #000 0%, #000 58%, rgba(0, 0, 0, .72) 76%, transparent 96%);
+}
+
+.funky-waves .sequence-canvas {
+  width: min(76vw, 1040px);
+}
+
+.helix-cool-science .sequence-canvas {
+  right: -2vw;
+  width: min(80vw, 1080px);
+}
+
+.helix-size-balanced .sequence-canvas {
+  right: -1vw;
+  width: min(84vw, 1120px);
+  height: 820px;
+}
+
+.helix-size-tall .sequence-canvas {
+  right: -1.5vw;
+  width: min(95vw, 1270px);
+  height: 900px;
+}
+
+.helix-size-full .sequence-canvas {
+  right: -2vw;
+  width: min(95vw, 1270px);
+  height: 900px;
+}
+
+@media (max-width: 720px) {
+  .sequence-canvas,
+  .funky-waves .sequence-canvas {
+    right: -28vw;
+    width: 100vw;
+    height: 720px;
+    opacity: .78;
+  }
+
+  .helix-diagonal .sequence-canvas {
+    right: 0;
+    width: 78vw;
+    opacity: .82;
+  }
+
+
+  .helix-cool-science .sequence-canvas {
+    right: 0;
+    width: 86vw;
+  }
+
+  .helix-size-balanced .sequence-canvas,
+  .helix-size-tall .sequence-canvas,
+  .helix-size-full .sequence-canvas {
+    right: 0;
+    width: 92vw;
+    height: 760px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sequence-canvas { opacity: .62; }
+}
