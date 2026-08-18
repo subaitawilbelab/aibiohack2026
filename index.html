@@ -105,7 +105,7 @@
       line-height: 1.35;
       letter-spacing: -0.025em;
     }
-    .cohosts { --cohost-logo-height: clamp(20px, 4.5vw, 32px); margin: 0 0 30px; }
+    .cohosts { --cohost-logo-height: clamp(17px, 3.7vw, 26px); margin: 0 0 30px; }
     .cohosts-label {
       margin-bottom: 12px;
       color: var(--muted);
@@ -116,24 +116,21 @@
     }
     .cohosts-list {
       display: flex;
-      gap: 20px;
+      gap: clamp(12px, 2.2vw, 22px);
       align-items: center;
       width: max-content;
       max-width: 100%;
     }
     .cohost-logo {
       display: block;
+      flex: 0 0 auto;
       width: auto;
       height: var(--cohost-logo-height);
-      object-position: center;
+      object-fit: contain;
+      object-position: left center;
+      transform: none;
     }
-    .cohost-openai { object-fit: contain; object-position: left center; }
-    .cohost-nvidia {
-      flex: 0 0 calc(var(--cohost-logo-height) * 5.25);
-      width: calc(var(--cohost-logo-height) * 5.25);
-      background: url("assets/nvidia-logo.png") center / 136% auto no-repeat;
-    }
-    .cohost-wilbelabs { height: calc(var(--cohost-logo-height) * 0.82); object-fit: contain; }
+    .cohost-wilbelabs { height: calc(var(--cohost-logo-height) * 0.86); }
     .facts {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -245,17 +242,15 @@
       .track { grid-template-columns: 38px 1fr; gap: 10px; }
     }
 
-    @media (max-width: 520px) {
-      .cohosts-list { gap: 8px; }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
     }
   </style>
+  <link rel="stylesheet" href="assets/final-helix.css">
+  <script src="assets/final-helix.js" defer></script>
 </head>
-<body>
+<body class="funky-demo funky-helix helix-diagonal helix-cool-science helix-size-tall">
   <div class="sequence-bg" aria-hidden="true">A C G T 0 1 1 0 G T A C 1 0 0 1 T C G A
 A C 1 0 0 1 T C G A 0 0 1 1 A A G T 1 1
 0 0 1 1 A A G T 1 1 0 0 C G T A 0 1 0 1
@@ -287,9 +282,9 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
         <div class="cohosts" aria-label="Event co-hosts">
           <p class="cohosts-label">Co-hosted by</p>
           <div class="cohosts-list">
+            <img class="cohost-logo cohost-nvidia" src="assets/nvidia-logo-transparent.png" alt="NVIDIA">
             <img class="cohost-logo cohost-openai" src="assets/openai-wordmark-black.svg" alt="OpenAI">
-            <span class="cohost-logo cohost-nvidia" role="img" aria-label="NVIDIA"></span>
-            <img class="cohost-logo cohost-wilbelabs" src="assets/wilbelabs-logo-yellow.png" alt="WilbeLABS">
+            <img class="cohost-logo cohost-wilbelabs" src="assets/wilbelabs-logo-hires-transparent.png" alt="WilbeLABS">
           </div>
         </div>
         <a class="button" href="#applications">Apply</a>
