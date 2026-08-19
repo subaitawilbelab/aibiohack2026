@@ -12,8 +12,8 @@
   height: 795px;
   pointer-events: none;
   user-select: none;
-  -webkit-mask-image: radial-gradient(ellipse 108% 106% at 100% 0%, #000 0%, #000 58%, rgba(0, 0, 0, .72) 76%, transparent 96%);
-  mask-image: radial-gradient(ellipse 108% 106% at 100% 0%, #000 0%, #000 58%, rgba(0, 0, 0, .72) 76%, transparent 96%);
+  -webkit-mask-image: radial-gradient(ellipse 112% 110% at 100% 0%, #000 0%, #000 52%, rgba(0, 0, 0, .7) 68%, rgba(0, 0, 0, .22) 84%, transparent 96%);
+  mask-image: radial-gradient(ellipse 112% 110% at 100% 0%, #000 0%, #000 52%, rgba(0, 0, 0, .7) 68%, rgba(0, 0, 0, .22) 84%, transparent 96%);
 }
 
 .funky-waves .sequence-canvas {
@@ -34,13 +34,22 @@
 .helix-size-tall .sequence-canvas {
   right: -1.5vw;
   width: min(95vw, 1270px);
-  height: 900px;
+  height: 860px;
+  filter: contrast(1.055) saturate(1.06);
 }
 
 .helix-size-full .sequence-canvas {
   right: -2vw;
   width: min(95vw, 1270px);
   height: 900px;
+}
+
+@media (min-width: 1200px) {
+  .helix-size-tall .sequence-canvas {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 720px) {
@@ -69,7 +78,7 @@
   .helix-size-full .sequence-canvas {
     right: 0;
     width: 92vw;
-    height: 760px;
+    height: 720px;
   }
 }
 

@@ -20,10 +20,10 @@
     [129, 76, 164]
   ];
   const restrainedSpectrum = [
-    [218, 198, 73],
-    [76, 157, 75],
-    [55, 119, 171],
-    [117, 81, 148]
+    [207, 185, 54],
+    [66, 147, 68],
+    [47, 107, 163],
+    [106, 68, 140]
   ];
   const helixStyles = {
     graphite: {
@@ -87,14 +87,17 @@
     ? restrainedSpectrum
     : mode === 'helix' ? helixStyle.palette : fullSpectrum;
   const pointer = { x: -9999, y: -9999, active: false };
+  const wakePoints = [];
   let width = 0;
   let height = 0;
   let networkNodes = [];
+  let currentFrameTime = 0;
+  let lastWakePointTime = 0;
 
   const helixSize = document.body.classList.contains('helix-size-full')
     ? { center: .64, amplitudeFactor: .23, amplitudeMax: 188, startY: 24, spanFactor: .87, spanMax: 720, pairs: 28, angle: -.4 }
     : document.body.classList.contains('helix-size-tall')
-      ? { center: .65, amplitudeFactor: .235, amplitudeMax: 195, startY: -24, spanFactor: .91, spanMax: 780, pairs: 24, angle: -.5, scale: .89, line: .128, opacity: .96, lineWidth: .95 }
+      ? { center: .65, amplitudeFactor: .235, amplitudeMax: 195, startY: -24, spanFactor: .91, spanMax: 780, pairs: 24, angle: -.5, scale: .89, line: .15, opacity: 1, lineWidth: 1.05 }
       : document.body.classList.contains('helix-size-balanced')
         ? { center: .68, amplitudeFactor: .2, amplitudeMax: 164, startY: 54, spanFactor: .78, spanMax: 640, pairs: 26, angle: -.47 }
         : null;
@@ -116,18 +119,30 @@
   }
 
   function displace(x, y, radius = 118, strength = 28) {
-    if (!pointer.active) return { x, y, proximity: 0 };
-    const dx = x - pointer.x;
-    const dy = y - pointer.y;
-    const distance = Math.hypot(dx, dy) || 1;
-    if (distance >= radius) return { x, y, proximity: 0 };
-    const proximity = 1 - distance / radius;
-    const force = proximity * proximity * strength;
-    return {
-      x: x + (dx / distance) * force,
-      y: y + (dy / distance) * force,
-      proximity
-    };
+    if (!wakePoints.length) return { x, y, proximity: 0 };
+    let offsetX = 0;
+    let offsetY = 0;
+    let peakProximity = 0;
+
+    wakePoints.forEach((wakePoint) => {
+      const age = currentFrameTime - wakePoint.time;
+      const life = Math.max(0, 1 - age / 920);
+      if (!life) return;
+
+      const dx = x - wakePoint.x;
+      const dy = y - wakePoint.y;
+      const distance = Math.hypot(dx, dy) || 1;
+      const wakeRadius = radius * (.7 + life * .45);
+      if (distance >= wakeRadius) return;
+
+      const proximity = 1 - distance / wakeRadius;
+      const force = proximity * proximity * strength * life;
+      offsetX += (dx / distance) * force;
+      offsetY += (dy / distance) * force;
+      peakProximity = Math.max(peakProximity, proximity * life);
+    });
+
+    return { x: x + offsetX, y: y + offsetY, proximity: peakProximity };
   }
 
   function rotatePoint(x, y, centerX, centerY, angle) {
@@ -155,6 +170,12 @@
   }
 
   function resize() {
+    const facts = document.querySelector('.facts');
+    if (facts) {
+      const canvasTop = Number.parseFloat(getComputedStyle(canvas).top) || 0;
+      const factsBottom = facts.getBoundingClientRect().bottom + window.scrollY;
+      canvas.style.height = `${Math.max(560, Math.round(factsBottom - canvasTop))}px`;
+    }
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     width = rect.width;
@@ -200,7 +221,7 @@
       ctx.moveTo(left.x, left.y);
       ctx.lineTo(right.x, right.y);
       const lineOpacity = helixSize?.line || helixStyle.line;
-      ctx.strokeStyle = colour(ratio, lineOpacity + depth * lineOpacity);
+      ctx.strokeStyle = colour(ratio, Math.min(.52, lineOpacity + depth * lineOpacity));
       ctx.lineWidth = helixSize?.lineWidth || (diagonal ? .65 : .8);
       ctx.stroke();
     });
@@ -213,10 +234,10 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = `${diagonal ? 500 : 600} ${sizeFront}px ${helixStyle.font}`;
-      ctx.fillStyle = colour(ratio + time * .000015, (.28 + depth * .48) * characterOpacity - left.proximity * .18);
+      ctx.fillStyle = colour(ratio + time * .000015, Math.min(.98, (.31 + depth * .5) * characterOpacity - left.proximity * .18));
       ctx.fillText(chars[index % chars.length], left.x, left.y);
       ctx.font = `${diagonal ? 400 : 500} ${sizeBack}px ${helixStyle.font}`;
-      ctx.fillStyle = colour(ratio + .42 + time * .000015, (.2 + (1 - depth) * .34) * characterOpacity - right.proximity * .14);
+      ctx.fillStyle = colour(ratio + .42 + time * .000015, Math.min(.92, (.23 + (1 - depth) * .37) * characterOpacity - right.proximity * .14));
       ctx.fillText(chars[(index + 5) % chars.length], right.x, right.y);
     });
   }
@@ -294,6 +315,8 @@
   }
 
   function frame(time) {
+    currentFrameTime = time;
+    while (wakePoints.length && time - wakePoints[0].time > 940) wakePoints.shift();
     draw(time);
     if (!reducedMotion) requestAnimationFrame(frame);
   }
@@ -303,6 +326,14 @@
     pointer.x = event.clientX - rect.left;
     pointer.y = event.clientY - rect.top;
     pointer.active = pointer.x > -40 && pointer.x < rect.width + 40 && pointer.y > -40 && pointer.y < rect.height + 40;
+    if (pointer.active) {
+      const now = performance.now();
+      if (now - lastWakePointTime > 34) {
+        wakePoints.push({ x: pointer.x, y: pointer.y, time: now });
+        if (wakePoints.length > 22) wakePoints.shift();
+        lastWakePointTime = now;
+      }
+    }
     if (reducedMotion) draw(0);
   }, { passive: true });
 
