@@ -232,6 +232,34 @@
     .track-number { color: var(--muted); font-size: 13px; padding-top: 5px; }
     .track h3 { margin-bottom: 10px; font-size: 22px; }
     .track-summary { margin: 0; color: #3e3e3e; }
+    .speaker-list { margin-top: 10px; border-top: 1px solid var(--ink); }
+    .speaker {
+      display: grid;
+      grid-template-columns: 184px minmax(0, 1fr);
+      gap: 30px;
+      align-items: start;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .speaker-photo { width: 184px; height: 184px; object-fit: cover; }
+    .speaker-photo-michael { object-position: 50% 18%; }
+    .speaker-photo-simon { object-position: 50% 28%; }
+    .speaker h3 { margin-bottom: 4px; font-size: 22px; }
+    .speaker-role { margin-bottom: 15px; color: var(--muted); font-size: 14px; font-weight: 600; }
+    .speaker-bio { margin: 0; color: #3e3e3e; font-size: 16px; line-height: 1.58; }
+
+    .prize-note {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 30px;
+      align-items: start;
+      margin-top: 30px;
+      padding: 28px 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+    }
+    .prize-note h3 { margin: 0; font-size: 18px; }
+    .prize-note p { margin: 0; color: #3e3e3e; font-size: 17px; }
 
     footer { padding: 24px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; text-align: center; }
 
@@ -254,6 +282,9 @@
       .photo-grid img { height: 52vw; min-height: 200px; max-height: 280px; }
       .photo-grid .lab-primary { grid-column: auto; height: 58vw; min-height: 260px; max-height: 380px; }
       .track { grid-template-columns: 38px 1fr; gap: 10px; }
+      .speaker { grid-template-columns: 116px minmax(0, 1fr); gap: 18px; }
+      .speaker-photo { width: 116px; height: 116px; }
+      .prize-note { grid-template-columns: 1fr; gap: 10px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -316,6 +347,8 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
         <a href="#about">The Challenge</a>
         <a href="#tracks">Tracks</a>
         <a href="#who">Who Should Apply</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#prizes">Prizes</a>
         <a href="#programme">Schedule</a>
         <a href="#applications">Applications</a>
       </aside>
@@ -382,6 +415,36 @@ G T A C 1 0 0 1 T C G A 0 0 1 1 A A G T
               <h3>Scientists</h3>
               <p>Researchers and wet-lab scientists who are using coding agents to answer biological questions, leveraging experimental knowledge and real-world scientific constraints.</p>
             </div>
+          </div>
+        </section>
+
+        <section class="section reveal" id="speakers">
+          <h2>Speakers</h2>
+          <div class="speaker-list">
+            <article class="speaker">
+              <img class="speaker-photo speaker-photo-michael" src="assets/michael-bronstein.png" alt="Michael Bronstein">
+              <div>
+                <h3>Michael Bronstein</h3>
+                <p class="speaker-role">Scientific Director of AI, AITHYRA · DeepMind Professor of AI, University of Oxford</p>
+                <p class="speaker-bio">Michael specialises in geometric deep learning and protein design. He has authored over 200 papers, holds more than 35 patents and received five ERC grants. Previously Head of Graph Learning Research at X, he is also a serial entrepreneur whose companies include Fabula AI, acquired by X, and Invision, acquired by Intel.</p>
+              </div>
+            </article>
+            <article class="speaker">
+              <img class="speaker-photo speaker-photo-simon" src="assets/simon-kohl.png" alt="Simon Kohl">
+              <div>
+                <h3>Simon Kohl</h3>
+                <p class="speaker-role">Founder &amp; CEO, Latent Labs</p>
+                <p class="speaker-bio">Simon is Founder and CEO of Latent Labs, a frontier AI lab developing generative models for protein and therapeutic design. He previously co-led DeepMind’s protein design team and worked on the Nobel Prize-winning AlphaFold2 project. Latent Labs recently launched Latent-Y, its lab-validated drug design agent, to researchers worldwide.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section reveal" id="prizes">
+          <h2>Prizes</h2>
+          <div class="prize-note">
+            <h3>OpenAI + NVIDIA</h3>
+            <p>Prize details will be announced soon.</p>
           </div>
         </section>
 
