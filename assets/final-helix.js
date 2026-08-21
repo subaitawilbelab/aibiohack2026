@@ -20,10 +20,11 @@
     [129, 76, 164]
   ];
   const restrainedSpectrum = [
-    [207, 185, 54],
-    [66, 147, 68],
-    [47, 107, 163],
-    [106, 68, 140]
+    [214, 187, 57],
+    [83, 174, 73],
+    [45, 165, 151],
+    [42, 123, 190],
+    [119, 76, 168]
   ];
   const helixStyles = {
     graphite: {
@@ -93,11 +94,17 @@
   let networkNodes = [];
   let currentFrameTime = 0;
   let lastWakePointTime = 0;
+  let running = false;
+  let documentVisible = !document.hidden;
+  // The canvas covers only the top of a very long page, but it used to keep
+  // clearing, redrawing and recompositing at 60fps the whole way down.
+  let canvasOnScreen = true;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
 
   const helixSize = document.body.classList.contains('helix-size-full')
     ? { center: .64, amplitudeFactor: .23, amplitudeMax: 188, startY: 24, spanFactor: .87, spanMax: 720, pairs: 28, angle: -.4 }
     : document.body.classList.contains('helix-size-tall')
-      ? { center: .65, amplitudeFactor: .235, amplitudeMax: 195, startY: -24, spanFactor: .91, spanMax: 780, pairs: 24, angle: -.5, scale: .89, line: .15, opacity: 1, lineWidth: 1.05 }
+      ? { center: .72, amplitudeFactor: .115, amplitudeMax: 108, startY: -24, spanFactor: .98, spanMax: 820, pairs: 28, angle: -.52, scale: .84, line: .1, opacity: .94, lineWidth: .76, speed: .00044, phaseStep: .57 }
       : document.body.classList.contains('helix-size-balanced')
         ? { center: .68, amplitudeFactor: .2, amplitudeMax: 164, startY: 54, spanFactor: .78, spanMax: 640, pairs: 26, angle: -.47 }
         : null;
@@ -174,16 +181,29 @@
     if (facts) {
       const canvasTop = Number.parseFloat(getComputedStyle(canvas).top) || 0;
       const factsBottom = facts.getBoundingClientRect().bottom + window.scrollY;
-      canvas.style.height = `${Math.max(560, Math.round(factsBottom - canvasTop))}px`;
+      // .facts stacks to one column under 820px, which drags factsBottom far down
+      // and made the canvas *taller* on phones than on desktop. The stylesheet caps
+      // .sequence-canvas at 720px below 720px wide; honour that cap here too, or the
+      // backing store (and the masked composite done every frame) balloons on exactly
+      // the weakest devices.
+      const capped = window.innerWidth <= 820 ? 720 : Infinity;
+      const wanted = Math.max(560, Math.round(factsBottom - canvasTop));
+      canvas.style.height = `${Math.min(capped, wanted)}px`;
     }
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const nextWidth = Math.round(rect.width * dpr);
+    const nextHeight = Math.round(rect.height * dpr);
+    // Mobile browsers fire resize continuously as the URL bar collapses. Reassigning
+    // canvas.width/height reallocates the whole backing store, so bail when nothing
+    // actually changed.
+    if (canvas.width === nextWidth && canvas.height === nextHeight) return;
     width = rect.width;
     height = rect.height;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
+    canvas.width = nextWidth;
+    canvas.height = nextHeight;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    makeNetwork();
+    if (mode === 'network') makeNetwork();
   }
 
   function drawHelix(time) {
@@ -204,7 +224,8 @@
 
     for (let index = 0; index < pairs; index += 1) {
       const ratio = index / (pairs - 1);
-      const phase = time * (helixStyle.speed || .00055) + index * (helixStyle.phaseStep || .57);
+      const phase = time * (helixSize?.speed || helixStyle.speed || .00055)
+        + index * (helixSize?.phaseStep || helixStyle.phaseStep || .57);
       const sine = Math.sin(phase);
       const depth = (Math.cos(phase) + 1) / 2;
       const y = startY + ratio * span;
@@ -318,10 +339,21 @@
     currentFrameTime = time;
     while (wakePoints.length && time - wakePoints[0].time > 940) wakePoints.shift();
     draw(time);
-    if (!reducedMotion) requestAnimationFrame(frame);
+    if (reducedMotion || !documentVisible || !canvasOnScreen) {
+      running = false;
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (running || reducedMotion || !documentVisible || !canvasOnScreen) return;
+    running = true;
+    requestAnimationFrame(frame);
   }
 
   window.addEventListener('pointermove', (event) => {
+    if (!finePointer || event.pointerType === 'touch') return;
     const rect = canvas.getBoundingClientRect();
     pointer.x = event.clientX - rect.left;
     pointer.y = event.clientY - rect.top;
@@ -341,9 +373,30 @@
     pointer.active = false;
     if (reducedMotion) draw(0);
   });
-  window.addEventListener('resize', resize);
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 150);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    documentVisible = !document.hidden;
+    start();
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      const entry = entries[entries.length - 1];
+      const box = entry.boundingClientRect;
+      // Never let a degenerate measurement (zero-area box, e.g. a hidden or
+      // not-yet-laid-out container) latch the animation off permanently.
+      if (!box.width || !box.height) return;
+      canvasOnScreen = entry.isIntersecting;
+      start();
+    }, { rootMargin: '200px' }).observe(canvas);
+  }
 
   resize();
   if (reducedMotion) draw(0);
-  else requestAnimationFrame(frame);
+  else start();
 })();

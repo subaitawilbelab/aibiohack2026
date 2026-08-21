@@ -85,3 +85,36 @@
 @media (prefers-reduced-motion: reduce) {
   .sequence-canvas { opacity: .62; }
 }
+
+/* ---- Slim helix (V2) presentation -------------------------------------
+   Placement/size only. The mask-image on the base .sequence-canvas rule is
+   deliberately kept: it feathers the canvas into the page, and at 96vw a
+   hard-edged rectangle would sit visibly across the hero.
+   Height stays driven by the JS cap (720px at <=820px wide), so none of this
+   enlarges the mobile backing store on the height axis. */
+.helix-size-tall .sequence-canvas {
+  top: 70px;
+  left: 50%;
+  right: auto;
+  width: min(96vw, 1260px);
+  transform: translateX(-50%);
+  filter: contrast(1.03) saturate(1.05);
+}
+
+@media (max-width: 820px) {
+  .helix-size-tall .sequence-canvas {
+    top: 72px;
+    left: auto;
+    right: -16vw;
+    width: 104vw;
+    height: 720px;
+    transform: none;
+    opacity: .86;
+  }
+}
+
+/* Re-asserted at matching specificity: the rules above would otherwise
+   out-rank the base .sequence-canvas reduced-motion opacity. */
+@media (prefers-reduced-motion: reduce) {
+  .helix-size-tall .sequence-canvas { opacity: .62; }
+}
