@@ -1,4 +1,7 @@
 .funky-demo .sequence-bg {
+  /* display:none, not just opacity:0 — at right:-6vw it still generated
+     horizontal overflow while invisible. */
+  display: none;
   opacity: 0;
   animation: none;
 }
@@ -105,8 +108,12 @@
   .helix-size-tall .sequence-canvas {
     top: 72px;
     left: auto;
-    right: -16vw;
-    width: 104vw;
+    /* Was right:-16vw / width:104vw per the V2 reference. The canvas is
+       position:absolute with no positioned ancestor, so its containing block is
+       the ICB — it escapes body{overflow-x:hidden} and pushed the document to
+       ~116vw, which is why iOS showed dead space to the right when pinched out. */
+    right: 0;
+    width: 100vw;
     height: 720px;
     transform: none;
     opacity: .86;

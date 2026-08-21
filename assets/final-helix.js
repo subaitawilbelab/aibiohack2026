@@ -100,6 +100,11 @@
   // clearing, redrawing and recompositing at 60fps the whole way down.
   let canvasOnScreen = true;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
+  // Touch devices are thermally//battery constrained and were crashing on this page.
+  // The strand drifts very slowly (speed .00044), so halving the redraw rate is not
+  // perceptible there but halves sustained canvas compositing.
+  const frameInterval = finePointer ? 0 : 33;
+  let lastDrawTime = -Infinity;
 
   const helixSize = document.body.classList.contains('helix-size-full')
     ? { center: .64, amplitudeFactor: .23, amplitudeMax: 188, startY: 24, spanFactor: .87, spanMax: 720, pairs: 28, angle: -.4 }
@@ -338,7 +343,10 @@
   function frame(time) {
     currentFrameTime = time;
     while (wakePoints.length && time - wakePoints[0].time > 940) wakePoints.shift();
-    draw(time);
+    if (time - lastDrawTime >= frameInterval) {
+      lastDrawTime = time;
+      draw(time);
+    }
     if (reducedMotion || !documentVisible || !canvasOnScreen) {
       running = false;
       return;
